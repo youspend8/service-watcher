@@ -39,13 +39,13 @@ public class ServiceApiWatchAspect {
     }
 
     @Around("@within(io.assist.servicewatcher.annotation.ApiWatch) && !@annotation(io.assist.servicewatcher.annotation.ApiSkip)")
-    public Object around(ProceedingJoinPoint proceedingJoinPoint) {
+    public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         long startAt = System.currentTimeMillis();
         try {
             Object proceed = proceedingJoinPoint.proceed();
             return proceed;
-        } catch (Throwable t) {
-            throw new RuntimeException(t);
+        } catch (Throwable throwable) {
+            throw throwable;
         } finally {
             long endAt = System.currentTimeMillis();
             setRequestAttribute("duration", endAt - startAt);

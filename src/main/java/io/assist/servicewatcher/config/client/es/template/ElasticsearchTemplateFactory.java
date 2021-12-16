@@ -29,7 +29,7 @@ public class ElasticsearchTemplateFactory {
 
     private static void reflectClass(XContentBuilder xContentBuilder, Class<?> clazz) throws IOException {
         for (Field field : clazz.getDeclaredFields()) {
-            xContentBuilder.startObject(field.getName());
+            xContentBuilder.startObject((field.getName().contains("timestamp") ? "@" : "") + field.getName());
             if (field.getType().isEnum() || field.getType() == String.class) {
                 xContentBuilder.field("type", "text");
             } else if (isPrimitiveOrWrapper(field)) {

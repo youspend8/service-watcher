@@ -2,15 +2,47 @@ plugins {
     id 'org.springframework.boot' version '2.6.1'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'maven-publish'
 }
 
 group = 'io.assist'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+version = '0.2.3'
+sourceCompatibility = '8'
 
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
+    }
+}
+
+jar {
+    archiveClassifier = ''
+}
+
+publishing {
+    ext {
+        artifactName = 'service-watcher'
+    }
+
+    bootJar {
+        enabled = false
+    }
+
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
+
+    repositories {
+        maven {
+            name = "Github"
+            url = 'https://maven.pkg.github.com/youspend8/service-watcher'
+            credentials {
+                username = System.getenv("GITHUB_USERNAME")
+                password = System.getenv("GITHUB_PASSWORD")
+            }
+        }
     }
 }
 

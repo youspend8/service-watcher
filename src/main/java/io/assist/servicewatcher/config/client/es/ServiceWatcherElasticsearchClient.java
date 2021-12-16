@@ -53,7 +53,7 @@ public class ServiceWatcherElasticsearchClient {
         updateRequest.doc(asJson(document), XContentType.JSON);
         updateRequest.id(UUID.randomUUID().toString());
         updateRequest.docAsUpsert(true);
-        restHighLevelClient.updateAsync(updateRequest, RequestOptions.DEFAULT, new ActionListener<>() {
+        restHighLevelClient.updateAsync(updateRequest, RequestOptions.DEFAULT, new ActionListener<UpdateResponse>() {
             @Override
             public void onResponse(UpdateResponse updateResponse) {
                 log.debug("elasticsearch document async update success");

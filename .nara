@@ -1,0 +1,13 @@
+#Mon Dec 13 13:56:48 KST 2021
+storeType=MongoDB
+groupId=io.naradrama
+dbName=
+projectTemplate=CQRS
+dbHost=localhost
+projectStyle=DramaBackend
+dbPort=9999
+dbUsername=
+skipEvent=false
+projectBuild=Gradle
+createEmbed=false
+dbPassword=

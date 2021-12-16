@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "service.watcher.produce-mode",
+      "type": "java.lang.String",
+      "description": "Description for service.watcher.produce-mode."
+  }
+] }

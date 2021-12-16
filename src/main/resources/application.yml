@@ -1,0 +1,15 @@
+
+service:
+  watcher:
+    service-name: watcher-dev
+    produce-mode: es
+    es:
+      host: ${ES_HOST}
+      port: ${ES_PORT}
+      username: ${ES_USERNAME}
+      password: ${ES_PASSWORD}
+
+logging:
+  level:
+    io.assist: INFO
+    org.elasticsearch: INFO

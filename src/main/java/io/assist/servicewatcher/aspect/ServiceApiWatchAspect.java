@@ -31,6 +31,7 @@ public class ServiceApiWatchAspect {
 
     @AfterThrowing(value = "@within(io.assist.servicewatcher.annotation.ApiWatch) && !@annotation(io.assist.servicewatcher.annotation.ApiSkip)", throwing = "exception")
     public void afterThrowing(JoinPoint joinPoint, Exception exception) {
+        log.trace("after throw from --> {}", joinPoint.getSignature().getName());
         setRequestAttribute("origin", getRequestURI());
         setRequestAttribute("exception", ApiException.builder()
                 .type(exception.getClass().getName())
@@ -42,8 +43,7 @@ public class ServiceApiWatchAspect {
     public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         long startAt = System.currentTimeMillis();
         try {
-            Object proceed = proceedingJoinPoint.proceed();
-            return proceed;
+            return proceedingJoinPoint.proceed();
         } catch (Throwable throwable) {
             throw throwable;
         } finally {

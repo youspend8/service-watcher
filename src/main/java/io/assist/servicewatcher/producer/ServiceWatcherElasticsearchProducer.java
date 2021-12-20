@@ -18,7 +18,7 @@ public class ServiceWatcherElasticsearchProducer implements ServiceWatcherEventP
 
     @PostConstruct
     private void postConstruct() {
-        log.info("ServiceWatcher >> Created ServiceWatcher Elasticsearch Producer");
+        log.info("Created ServiceWatcher Elasticsearch Producer");
     }
 
     @Override

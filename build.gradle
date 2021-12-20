@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'io.assist'
-version = '0.2.4'
+version = '0.2.5'
 sourceCompatibility = '8'
 
 configurations {
@@ -17,6 +17,7 @@ configurations {
 
 jar {
     archiveClassifier = ''
+    exclude('io/assist/application/**')
 }
 
 publishing {

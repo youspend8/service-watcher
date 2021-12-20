@@ -3,7 +3,6 @@ package io.assist.servicewatcher.vo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.assist.servicewatcher.util.DateTimeUtil;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -24,5 +23,5 @@ public class ApiEvent extends ServiceWatcherEvent {
     @Builder.Default
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @JsonProperty("@timestamp")
-    private LocalDateTime timestamp = DateTimeUtil.NOW;
+    private LocalDateTime timestamp = LocalDateTime.now();
 }

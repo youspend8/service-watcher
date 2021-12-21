@@ -13,4 +13,5 @@ public class ApiEventRequest {
     private String uri;
     private String contentType;
     private String userAgent;
+    private String referrer;
 }

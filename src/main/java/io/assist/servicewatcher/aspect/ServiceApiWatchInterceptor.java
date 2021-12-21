@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
 @Slf4j
-//@Component
 @RequiredArgsConstructor
 @Deprecated
 public class ServiceApiWatchInterceptor implements HandlerInterceptor, WebMvcConfigurer {

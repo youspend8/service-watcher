@@ -6,6 +6,7 @@ import io.assist.servicewatcher.vo.ApiEventRequest;
 import io.assist.servicewatcher.vo.ApiEventResponse;
 import io.assist.servicewatcher.vo.ApiException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 
@@ -17,6 +18,7 @@ import java.util.Objects;
 
 @Configuration
 @RequiredArgsConstructor
+@Slf4j
 public class ServiceApiWatchFilter implements Filter {
     private final ServiceWatcherEventDispatcher dispatcher;
 
@@ -26,10 +28,14 @@ public class ServiceApiWatchFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        if (isWatchApi(request)) {
-            ApiEvent apiEvent = createApiEvent(request, response);
-            dispatcher.dispatch(apiEvent);
-        }
+        try {
+            if (isWatchApi(request)) {
+                ApiEvent apiEvent = createApiEvent(request, response);
+                dispatcher.dispatch(apiEvent);
+            }
+        } catch (Exception e) {
+            log.error("Service watcher event dispatching exception --> {}", e.getMessage());
+        };
     }
 
     private boolean isWatchApi(HttpServletRequest request) {
@@ -48,6 +54,7 @@ public class ServiceApiWatchFilter implements Filter {
                         .contentType(request.getContentType())
                         .method(request.getMethod())
                         .userAgent(request.getHeader("User-Agent"))
+                        .referrer(request.getHeader("Referer"))
                         .build())
                 .response(ApiEventResponse.builder()
                         .httpStatus(HttpStatus.valueOf(response.getStatus()))

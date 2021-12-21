@@ -27,11 +27,21 @@ public class ElasticsearchTemplateFactory {
         }
     }
 
+    private static void textWithKeyword(XContentBuilder xContentBuilder) throws IOException {
+        xContentBuilder.field("type", "text");
+        xContentBuilder.startObject("fields");
+        xContentBuilder.startObject("keyword");
+        xContentBuilder.field("type", "keyword");
+        xContentBuilder.field("ignore_above", 256);
+        xContentBuilder.endObject();
+        xContentBuilder.endObject();
+    }
+
     private static void reflectClass(XContentBuilder xContentBuilder, Class<?> clazz) throws IOException {
         for (Field field : clazz.getDeclaredFields()) {
             xContentBuilder.startObject((field.getName().contains("timestamp") ? "@" : "") + field.getName());
             if (field.getType().isEnum() || field.getType() == String.class) {
-                xContentBuilder.field("type", "text");
+                textWithKeyword(xContentBuilder);
             } else if (isPrimitiveOrWrapper(field)) {
                 xContentBuilder.field("type", asMappingTypeName(field.getType().getTypeName().toLowerCase(Locale.ROOT)));
             } else if (isDate(field)) {
